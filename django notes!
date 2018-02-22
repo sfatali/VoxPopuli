@@ -1,0 +1,30 @@
+
+----------Useful commands----------
+
+pip list --local
+
+pip install -r requirements.txt
+
+python manage.py makemigrations api
+
+python manage.py migrate
+
+python manage.py runserver
+
+python manage.py showmigrations
+
+python manage.py migrate --fake api zero
+
+
+-----------Useful links----------
+
+https://tutorial.djangogirls.org/en/django_start_project/
+https://tutorial.djangogirls.org/en/django_models/
+https://docs.djangoproject.com/en/2.0/ref/models/fields/
+https://docs.djangoproject.com/en/2.0/ref/contrib/postgres/fields/
+
+
+-----------About db----------
+Postgres, name "voxpopuli", owner user "postgres" with password "postgres"
+
+
