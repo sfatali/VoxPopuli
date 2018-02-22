@@ -9,24 +9,88 @@ class User(models.Model):
     password = models.CharField(max_length=256, null=False)
     name = models.CharField(max_length=25, null=False)
     surname = models.CharField(max_length=35, null=False)
+    birth_date = models.DateField(null=False)
+    email = models.CharField(max_length=50, null=False)
     registered_date = models.DateTimeField(default=now)
     karma = models.IntegerField(default=0)
     country = models.ForeignKey('Country', on_delete=models.CASCADE)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Problem(models.Model):
-    id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
     created_date = models.DateTimeField(default=now)
+    updated_date = models.DateTimeField(default=now)
     title = models.CharField(max_length=40, null=False)
     body = models.TextField(null=False)
-    image = models.IntegerField
+    image = models.ImageField
     score = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default="unresolved")
     country = models.ForeignKey('Country', on_delete=models.CASCADE)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
     tags = ArrayField(models.CharField(max_length=30), blank=True)
+    comments_count = models.IntegerField(default=0)
+    subscribers_count = models.IntegerField(default=0)
+    # I haven't figured out how joins and sub-queries work...
+    # So, might be easier just to have this stupid column :(
+
+
+class Idea(models.Model):
+    id = models.UUIDField(primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    problem = models.ForeignKey('Problem', blank=True, on_delete=models.DO_NOTHING)
+    created_date = models.DateTimeField(default=now)
+    updated_date = models.DateTimeField(default=now)
+    title = models.CharField(max_length=40, null=False)
+    body = models.TextField(null=False)
+    image = models.ImageField
+    score = models.IntegerField(default=0)
+    status = models.CharField(max_length=10, default="active")
+    comments_count = models.IntegerField(default=0)
+    subscribers_count = models.IntegerField(default=0)
+    # I haven't figured out how joins and sub-queries work...
+    # So, might be easier just to have this stupid column :(
+
+
+class Event(models.Model):
+    id = models.UUIDField(primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    idea = models.ForeignKey('Idea', on_delete=models.CASCADE)
+    event_date = models.DateTimeField(null=False)
+    created_date = models.DateTimeField(default=now)
+    updated_date = models.DateTimeField(default=now)
+    title = models.CharField(max_length=40, null=False)
+    body = models.TextField(null=False)
+    attenders_count = models.IntegerField(default=0)
+    comments_count = models.IntegerField(default=0)
+    # I haven't figured out how joins and sub-queries will work...
+    # So, might be easier just to have this stupid column :(
+
+
+class UserEvent(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    event = models.ForeignKey('Event', on_delete=models.CASCADE)
+    created_date = models.DateTimeField(default=now)
+
+
+class Comment(models.Model):
+    id = models.AutoField(primary_key=True)
+    post_id = models.UUIDField
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    comment = models.TextField(max_length=500, null=False)
+    created_date = models.DateTimeField(default=now)
+
+
+class UserSubscription(models.Model):
+    id = models.AutoField(primary_key=True)
+    post_id = models.UUIDField
+    user = models.ForeignKey('User', on_delete=models.CASCADE)
+    created_date = models.DateTimeField(default=now)
 
 
 class Continent(models.Model):
