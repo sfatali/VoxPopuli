@@ -10,7 +10,7 @@ class User(models.Model):
     name = models.CharField(max_length=25, null=False)
     surname = models.CharField(max_length=35, null=False)
     birth_date = models.DateField(null=False)
-    email = models.CharField(max_length=50, null=False)
+    email = models.EmailField(null=False)
     registered_date = models.DateTimeField(default=now)
     karma = models.IntegerField(default=0)
     country = models.ForeignKey('Country', on_delete=models.CASCADE)
@@ -27,16 +27,12 @@ class Problem(models.Model):
     updated_date = models.DateTimeField(default=now)
     title = models.CharField(max_length=40, null=False)
     body = models.TextField(null=False)
-    image = models.ImageField
+    image = models.ImageField(blank=True)
     score = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default="unresolved")
     country = models.ForeignKey('Country', on_delete=models.CASCADE)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
     tags = ArrayField(models.CharField(max_length=30), blank=True)
-    comments_count = models.IntegerField(default=0)
-    subscribers_count = models.IntegerField(default=0)
-    # I haven't figured out how joins and sub-queries work...
-    # So, might be easier just to have this stupid column :(
 
 
 class Idea(models.Model):
@@ -47,13 +43,10 @@ class Idea(models.Model):
     updated_date = models.DateTimeField(default=now)
     title = models.CharField(max_length=40, null=False)
     body = models.TextField(null=False)
-    image = models.ImageField
+    image = models.ImageField(blank=True)
     score = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default="active")
-    comments_count = models.IntegerField(default=0)
-    subscribers_count = models.IntegerField(default=0)
-    # I haven't figured out how joins and sub-queries work...
-    # So, might be easier just to have this stupid column :(
+    tags = ArrayField(models.CharField(max_length=30), blank=True, default='')
 
 
 class Event(models.Model):
@@ -65,10 +58,7 @@ class Event(models.Model):
     updated_date = models.DateTimeField(default=now)
     title = models.CharField(max_length=40, null=False)
     body = models.TextField(null=False)
-    attenders_count = models.IntegerField(default=0)
-    comments_count = models.IntegerField(default=0)
-    # I haven't figured out how joins and sub-queries will work...
-    # So, might be easier just to have this stupid column :(
+    status = models.CharField(max_length=10, default="active")
 
 
 class UserEvent(models.Model):
@@ -79,10 +69,18 @@ class UserEvent(models.Model):
 
 
 class Comment(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True)
     post_id = models.UUIDField
     user = models.ForeignKey('User', on_delete=models.CASCADE)
     comment = models.TextField(max_length=500, null=False)
+    created_date = models.DateTimeField(default=now)
+
+
+class ReportHistory(models.Model):
+    id = models.AutoField(primary_key=True)
+    post_id = models.UUIDField() # id of problem, idea, event. comments can be reported too
+    user = models.ForeignKey('User', on_delete=models.CASCADE) # who reported
+    reason = models.CharField(max_length=50, null=False) # here will be a set of options added later todo!
     created_date = models.DateTimeField(default=now)
 
 
