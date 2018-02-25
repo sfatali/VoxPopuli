@@ -15,6 +15,10 @@ python manage.py showmigrations
 
 python manage.py migrate --fake api zero
 
+#SUPER USER for admin panel
+python manage.py createsuperuser
+#then go to localhost/admin
+
 
 -----------Useful links----------
 
