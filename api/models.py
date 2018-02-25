@@ -12,8 +12,8 @@ class User(models.Model):
     birth_date = models.DateField(null=False)
     email = models.EmailField(null=False)
     registered_date = models.DateTimeField(default=now)
+    last_login_date = models.DateTimeField(default=now)
     karma = models.IntegerField(default=0)
-    country = models.ForeignKey('Country', on_delete=models.CASCADE)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -30,7 +30,6 @@ class Problem(models.Model):
     image = models.ImageField(blank=True)
     score = models.IntegerField(default=0)
     status = models.CharField(max_length=10, default="unresolved")
-    country = models.ForeignKey('Country', on_delete=models.CASCADE)
     city = models.ForeignKey('City', on_delete=models.CASCADE)
     tags = ArrayField(models.CharField(max_length=30), blank=True)
 
