@@ -1,0 +1,10 @@
+[
+  {
+    "model": "util.city",
+    "pk": 1,
+    "fields": {
+      "name": "Manchester",
+      "country_id": 1
+    }
+  }
+]

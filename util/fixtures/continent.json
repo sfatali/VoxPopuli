@@ -1,0 +1,9 @@
+[
+  {
+    "model": "util.continent",
+    "pk": 1,
+    "fields": {
+      "name": "Europe"
+    }
+  }
+]

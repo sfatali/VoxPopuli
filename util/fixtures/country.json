@@ -1,0 +1,10 @@
+[
+  {
+    "model": "util.country",
+    "pk": 1,
+    "fields": {
+      "name": "UK",
+      "continent_id": 1
+    }
+  }
+]

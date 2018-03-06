@@ -1,0 +1,13 @@
+[
+  {
+    "model": "profiles.profile",
+    "pk": 1,
+    "fields": {
+      "birth_date": "1940-10-09",
+      "about": "Imagine.",
+      "karma": "10",
+      "city": "1",
+      "user_id": "1"
+    }
+  }
+]

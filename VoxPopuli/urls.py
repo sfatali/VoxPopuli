@@ -17,15 +17,21 @@ from django.contrib import admin
 from django.urls import path
 
 from django.conf.urls import url, include
-from api.models import *
+import events.models
+import util.models
+import ideas.models
+import problems.models
+import profiles.models
 from rest_framework import routers, serializers, viewsets
 
 # Serializers define the API representation.
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
 
+class ProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = profiles.models.Profile
+
+        """
         fields = ('username', \
                  'password', \
                  'name', \
@@ -36,10 +42,16 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
                  'karma', \
                  'country', \
                  'city')
+        """
+        fields = ('birth_date', \
+                 'about', \
+                 'karma', \
+                 'city')
+
 
 class ProblemSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Problem
+        model = problems.models.Problem
 
         fields = ('user', \
                 'created_date', \
@@ -53,9 +65,10 @@ class ProblemSerializer(serializers.HyperlinkedModelSerializer):
                 'city', \
                 'tags')
 
+
 class IdeaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Idea
+        model = ideas.models.Idea
 
         fields = ('user', \
                 'created_date', \
@@ -67,9 +80,10 @@ class IdeaSerializer(serializers.HyperlinkedModelSerializer):
                 'status', \
                 'tags')
 
+
 class EventSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Event
+        model = events.models.Event
 
         fields = ('user', \
                 'idea',\
@@ -80,81 +94,125 @@ class EventSerializer(serializers.HyperlinkedModelSerializer):
                 'body', \
                 'status')
 
-class UserEventSerializer(serializers.HyperlinkedModelSerializer):
+
+class AttendanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = UserEvent
+        model = events.models.Attendance
 
         fields = ('user', \
                 'event',\
                 'created_date')
 
-class CommentSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = UserEvent
 
-        fields = ('post_id', \
+class EventCommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = events.models.EventComment
+
+        fields = ('event', \
                 'user',\
                 'comment',\
                 'created_date')
 
-class ReportHistorySerializer(serializers.HyperlinkedModelSerializer):
+
+class IdeaCommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = UserEvent
+        model = ideas.models.IdeaComment
+
+        fields = ('idea', \
+                'user',\
+                'comment',\
+                'created_date')
+
+
+class ProblemCommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = problems.models.ProblemComment
+
+        fields = ('problem', \
+                'user',\
+                'comment',\
+                'created_date')
+
+"""
+class EventReportHistorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = events.models.ReportHistory
 
         fields = ('post_id', \
                 'user',\
                 'reason',\
                 'created_date')
 
-class UserSubscriptionSerializer(serializers.HyperlinkedModelSerializer):
+
+class IdeaReportHistorySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = UserEvent
+        model = ideas.models.ReportHistory
 
         fields = ('post_id', \
                 'user',\
+                'reason',\
                 'created_date')
+
+
+class ProblemReportHistorySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = problems.models.ReportHistory
+
+        fields = ('post_id', \
+                'user',\
+                'reason',\
+                'created_date')
+"""
 
 
 class ContinentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Continent
+        model = 'util.Continent'
         #using [] instead of () because it needs to be a tuple or list explicitly
         fields = ['name']
 
+
 class CountrySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = Country
+        model = 'util.Country'
 
         fields = ('name','continent')
 
+
 class CitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = City
+        model = 'util.City'
 
         fields = ('name','country')
 
 
 # ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = profiles.models.Profile.objects.all()
+    serializer_class = ProfileSerializer
+
 
 class ProblemViewSet(viewsets.ModelViewSet):
-    queryset = Problem.objects.all()
+    queryset = problems.models.Problem.objects.all()
     serializer_class = ProblemSerializer
 
+
 class IdeaViewSet(viewsets.ModelViewSet):
-    queryset = Idea.objects.all()
+    queryset = ideas.models.Idea.objects.all()
     serializer_class = IdeaSerializer
 
+
 class EventViewSet(viewsets.ModelViewSet):
-    queryset = Event.objects.all()
+    queryset = events.models.Event.objects.all()
     serializer_class = EventSerializer
 
-class UserEventViewSet(viewsets.ModelViewSet):
-    queryset = UserEvent.objects.all()
+
+class AttendanceViewSet(viewsets.ModelViewSet):
+    queryset = events.models.Attendance.objects.all()
     serializer_class = EventSerializer
 
+
+"""
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = EventSerializer
@@ -162,34 +220,33 @@ class CommentViewSet(viewsets.ModelViewSet):
 class ReportHistoryViewSet(viewsets.ModelViewSet):
     queryset = ReportHistory.objects.all()
     serializer_class = EventSerializer
+"""
 
-class UserSubscriptionViewSet(viewsets.ModelViewSet):
-    queryset = UserSubscription.objects.all()
-    serializer_class = EventSerializer
 
 class ContinentViewSet(viewsets.ModelViewSet):
-    queryset = Continent.objects.all()
+    queryset = util.models.Continent.objects.all()
     serializer_class = ContinentSerializer
 
 class CountryViewSet(viewsets.ModelViewSet):
-    queryset = Country.objects.all()
+    queryset = util.models.Country.objects.all()
     serializer_class = CountrySerializer
 
 class CityViewSet(viewsets.ModelViewSet):
-    queryset = City.objects.all()
+    queryset = util.models.City.objects.all()
     serializer_class = CitySerializer
 
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r'users', ProfileViewSet)
 router.register(r'problems', ProblemViewSet)
 router.register(r'ideas', IdeaViewSet)
 router.register(r'events', EventViewSet)
-router.register(r'userevents', UserEventViewSet)
+router.register(r'userevents', AttendanceViewSet)
+"""
 router.register(r'comments', CommentViewSet)
 router.register(r'reporthistory', ReportHistoryViewSet)
-router.register(r'usersubscriptions', UserSubscriptionViewSet)
+"""
 router.register(r'continents', ContinentViewSet)
 router.register(r'countries', CountryViewSet)
 router.register(r'cities', CityViewSet)
