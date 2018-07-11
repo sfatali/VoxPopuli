@@ -1,0 +1,38 @@
+[
+  {
+    "model": "problems.problemcomment",
+    "pk": 1,
+    "fields": {
+      "author_id": 2,
+      "problem_id": 1,
+      "comment": "Haha."
+    }
+  },
+  {
+    "model": "problems.problemcomment",
+    "pk": 2,
+    "fields": {
+      "author_id": 2,
+      "problem_id": 1,
+      "comment": "Haha. (2)"
+    }
+  },
+  {
+    "model": "problems.problemcomment",
+    "pk": 3,
+    "fields": {
+      "author_id": 2,
+      "problem_id": 2,
+      "comment": "Hahahahahaha."
+    }
+  },
+  {
+    "model": "problems.problemcomment",
+    "pk": 4,
+    "fields": {
+      "author_id": 2,
+      "problem_id": 2,
+      "comment": "Hilarious problem."
+    }
+  }
+]

@@ -6,5 +6,29 @@
       "name": "Manchester",
       "country_id": 1
     }
+  },
+  {
+    "model": "util.city",
+    "pk": 2,
+    "fields": {
+      "name": "Oulu",
+      "country_id": 2
+    }
+  },
+  {
+    "model": "util.city",
+    "pk": 3,
+    "fields": {
+      "name": "Helsinki",
+      "country_id": 2
+    }
+  },
+  {
+    "model": "util.city",
+    "pk": 4,
+    "fields": {
+      "name": "Imaginary city",
+      "country_id": 3
+    }
   }
 ]

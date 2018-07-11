@@ -1,0 +1,28 @@
+[
+  {
+    "model": "problems.problem",
+    "pk": 1,
+    "fields": {
+      "user_id": 1,
+      "title": "A big problem",
+      "body": "Well, there is one really big problem bothering me. I wonder if anyone could help me.",
+      "city": 4,
+      "tags": [
+        "help", "meh", "big"
+      ]
+    }
+  },
+  {
+    "model": "problems.problem",
+    "pk": 2,
+    "fields": {
+      "user_id": 1,
+      "title": "A bigger problem",
+      "body": "This one more problem, a bigger one.",
+      "city": 4,
+      "tags": [
+        "sadness", "meh", "big"
+      ]
+    }
+  }
+]

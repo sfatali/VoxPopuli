@@ -5,5 +5,47 @@
     "fields": {
       "name": "Europe"
     }
+  },
+  {
+    "model": "util.continent",
+    "pk": 2,
+    "fields": {
+      "name": "Africa"
+    }
+  },
+  {
+    "model": "util.continent",
+    "pk": 3,
+    "fields": {
+      "name": "Asia"
+    }
+  },
+  {
+    "model": "util.continent",
+    "pk": 4,
+    "fields": {
+      "name": "North America"
+    }
+  },
+  {
+    "model": "util.continent",
+    "pk": 5,
+    "fields": {
+      "name": "South America"
+    }
+  },
+  {
+    "model": "util.continent",
+    "pk": 6,
+    "fields": {
+      "name": "Australia"
+    }
+  },
+  {
+    "model": "util.continent",
+    "pk": 7,
+    "fields": {
+      "name": "Antarctica"
+    }
   }
 ]

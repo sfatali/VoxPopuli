@@ -142,3 +142,11 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+FIXTURE_DIRS = [
+    'util/fixtures',
+    'profiles/fixtures',
+    'problems/fixtures',
+    'ideas/fixtures',
+    'events/fixtures',
+]

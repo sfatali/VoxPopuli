@@ -6,5 +6,21 @@
       "name": "UK",
       "continent_id": 1
     }
+  },
+  {
+    "model": "util.country",
+    "pk": 2,
+    "fields": {
+      "name": "Finland",
+      "continent_id": 1
+    }
+  },
+  {
+    "model": "util.country",
+    "pk": 3,
+    "fields": {
+      "name": "Imaginary country",
+      "continent_id": 7
+    }
   }
 ]

@@ -19,6 +19,18 @@ python manage.py migrate --fake api zero
 python manage.py createsuperuser
 #then go to localhost/admin
 
+Pre-populating database (no way was found to load the files in 1 command):
+
+python manage.py loaddata util\fixtures\continent.json
+python manage.py loaddata util\fixtures\country.json
+python manage.py loaddata util\fixtures\city.json
+python manage.py loaddata profiles\fixtures\user.json
+python manage.py loaddata profiles\fixtures\profile.json
+
+Destroying data in the whole database:
+python manage.py flush
+
+
 
 -----------Useful links----------
 
